@@ -13,7 +13,7 @@ public class ProyectoFinalGrupo01 {
 
     public static void main(String[] args) {
         Juego juego = new Juego();
-
+        System.out.println("Lo logramos!");
     }
     
 }
