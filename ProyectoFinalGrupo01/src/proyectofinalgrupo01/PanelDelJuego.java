@@ -24,13 +24,15 @@ public class PanelDelJuego extends JPanel {
     private float xDelta = 100, yDelta = 100;
     private int frames = 0;
     private long lastCkeck = 0;
-    private BufferedImage image;
+    private BufferedImage imagen;
+    private BufferedImage[] animacion;
     
     
     public PanelDelJuego(){
         addKeyListener(new EntradasPorTeclado(this));
         setPanelSize();
         ImportImg();
+        cargarAnimaciones();
     }
     
     public void CambiarxDelta(int Valor){
@@ -46,7 +48,7 @@ public class PanelDelJuego extends JPanel {
         super.paintComponent(g);
         
         
-        g.drawImage(image.getSubimage(0, 0, 120, 80),(int) xDelta,(int) yDelta ,128, 80,  null);
+        g.drawImage(animacion[2].getSubimage(0, 0, 120, 80),(int) xDelta,(int) yDelta ,128, 80,  null);
     }
 
     private void setPanelSize() {
@@ -57,11 +59,19 @@ public class PanelDelJuego extends JPanel {
     }
 
     private void ImportImg() {
-        InputStream is = getClass().getResourceAsStream("/Run.png");
+        InputStream is = getClass().getResourceAsStream("/BloodLichIdleSide.png");
         try {
-            image = ImageIO.read(is);
+            imagen = ImageIO.read(is);
         } catch (IOException ex) {
             Logger.getLogger(PanelDelJuego.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void cargarAnimaciones() {
+        animacion = new BufferedImage[10];
+        
+        for (int i = 0; i < animacion.length; i++) {
+            animacion[i] = imagen.getSubimage(i*16, 0, 16, 16);
         }
     }
     
