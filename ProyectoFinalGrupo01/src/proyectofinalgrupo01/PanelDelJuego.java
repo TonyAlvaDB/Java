@@ -4,9 +4,7 @@
  */
 package proyectofinalgrupo01;
 
-import Entradas.EntradasPorMouse;
 import Entradas.EntradasPorTeclado;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -26,6 +24,8 @@ public class PanelDelJuego extends JPanel {
     private long lastCkeck = 0;
     private BufferedImage imagen;
     private BufferedImage[] animacion;
+    private int tickAnimacion, indexAnimacion, velocidadAnimacion = 25;
+    
     
     
     public PanelDelJuego(){
@@ -36,19 +36,27 @@ public class PanelDelJuego extends JPanel {
     }
     
     public void CambiarxDelta(int Valor){
-        this.xDelta += Valor;
-        
+        this.xDelta += Valor; 
     }
+    
     public void CambiaryDelta(int Valor){
-        this.yDelta += Valor;
-        
+        this.yDelta += Valor; 
+    }
+    
+    private void recargaDeAnimacion() {
+        tickAnimacion++;
+        if(tickAnimacion >= velocidadAnimacion){
+            tickAnimacion = 0;
+            indexAnimacion++;
+            if(indexAnimacion >= animacion.length)
+                indexAnimacion=0;
+        }
     }
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        
-        
-        g.drawImage(animacion[2].getSubimage(0, 0, 120, 80),(int) xDelta,(int) yDelta ,128, 80,  null);
+        recargaDeAnimacion();
+        g.drawImage(animacion[indexAnimacion],(int) xDelta,(int) yDelta ,128, 128,  null);
     }
 
     private void setPanelSize() {
@@ -71,12 +79,9 @@ public class PanelDelJuego extends JPanel {
         animacion = new BufferedImage[10];
         
         for (int i = 0; i < animacion.length; i++) {
-            animacion[i] = imagen.getSubimage(i*16, 0, 16, 16);
+            animacion[i] = imagen.getSubimage(i*32, 0, 32, 32);
         }
     }
-    
-
-    
 }
 
 

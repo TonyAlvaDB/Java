@@ -15,9 +15,6 @@ public class Juego implements Runnable{
         ventanaDelJuego = new VentanaDelJuego(panelDelJuego);
         panelDelJuego.requestFocus();
         startGameLoop();
-        
-        
-        
     }
 
     
